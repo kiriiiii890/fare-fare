@@ -63,7 +63,7 @@ export default function Header() {
             Về chúng tôi
           </Link>
           <Link
-            href="/#bo-bai"
+            href="/bo-bai"
             className="transition-colors hover:text-gold-soft"
           >
             Về bộ bài

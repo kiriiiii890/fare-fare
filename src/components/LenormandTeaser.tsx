@@ -1,15 +1,16 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { withBasePath } from "@/lib/base-path";
 
 const previewCards = [
-  { name: "Kỵ Sĩ", file: "Illustration118.png", rotate: -12 },
-  { name: "Cỏ Ba Lá", file: "Illustration80.png", rotate: -6 },
-  { name: "Con Tàu", file: "Illustration106 (2).png", rotate: 0 },
-  { name: "Ngôi Nhà", file: "Illustration110 (2).png", rotate: 6 },
-  { name: "Bó Hoa", file: "Illustration114 (1).png", rotate: 12 },
+  { name: "Kỵ Sĩ", file: "1-rider.png", rotate: -12 },
+  { name: "Cỏ Ba Lá", file: "2-clover.png", rotate: -6 },
+  { name: "Con Tàu", file: "3-ship.png", rotate: 0 },
+  { name: "Ngôi Nhà", file: "4-house.png", rotate: 6 },
+  { name: "Bó Hoa", file: "9-bouquet.png", rotate: 12 },
 ];
 
 export default function LenormandTeaser() {
@@ -103,15 +104,15 @@ export default function LenormandTeaser() {
                 ))}
               </div>
 
-              <a
-                href="#bo-bai"
+              <Link
+                href="/bo-bai"
                 style={{
                   animationDelay: `${300 + previewCards.length * 180 + 200}ms`,
                 }}
                 className="animate-[reveal-up_0.6s_ease-out_both] rounded-full border border-gold/50 px-6 py-2 font-body text-xs tracking-[0.2em] text-gold-soft opacity-0 transition-colors hover:border-gold hover:text-gold"
               >
                 XEM CHI TIẾT
-              </a>
+              </Link>
             </>
           )}
         </div>
