@@ -37,7 +37,7 @@ export default function LenormandTeaser() {
             FAYE Lenormand
           </h2>
           <p className="mx-auto mt-4 max-w-xl font-body text-sm leading-relaxed text-muted">
-            36 lá bài minh họa thủ công, đồng hành cùng bạn trong hành trình
+            37 lá bài minh họa thủ công, đồng hành cùng bạn trong hành trình
             chiêm nghiệm và kết nối trực giác. (nội dung tạm, sẽ cập nhật sau)
           </p>
         </div>

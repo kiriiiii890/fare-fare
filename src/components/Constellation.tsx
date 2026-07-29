@@ -3,12 +3,12 @@
 import { useState } from "react";
 
 const stars = [
-  { word: "THÔNG", x: 120, y: 260, message: "Thông điệp #1 sẽ được cập nhật sau." },
-  { word: "ĐIỆP", x: 230, y: 150, message: "Thông điệp #2 sẽ được cập nhật sau." },
-  { word: "TỪ", x: 300, y: 340, message: "Thông điệp #3 sẽ được cập nhật sau." },
-  { word: "NHỮNG", x: 430, y: 430, message: "Thông điệp #4 sẽ được cập nhật sau." },
-  { word: "VÌ", x: 620, y: 180, message: "Thông điệp #5 sẽ được cập nhật sau." },
-  { word: "SAO", x: 760, y: 400, message: "Thông điệp #6 sẽ được cập nhật sau." },
+  { word: "THÔNG", x: 120, y: 260, message: "Thông suốt tâm trí, thả trôi mọi muộn phiền để trái tim được thảnh thơi." },
+  { word: "ĐIỆP", x: 230, y: 150, message: "Điệp khúc của vạn vật là sự đổi thay; hãy cứ tỏa sáng theo nhịp điệu của riêng bạn." },
+  { word: "TỪ", x: 300, y: 340, message: "Từ bỏ những điều đã cũ là cách bạn mở lòng đón nhận muôn vàn phép màu mới." },
+  { word: "NHỮNG", x: 430, y: 430, message: "Những bước đi nhỏ bé hôm nay đang âm thầm dệt nên ước mơ lớn của tương lai." },
+  { word: "VÌ", x: 620, y: 180, message: "Vì bạn là một phiên bản độc bản, hãy luôn tự hào về chặng đường mình đã qua." },
+  { word: "SAO", x: 760, y: 400, message: "Sao phải lo lắng khi bầu trời đêm càng tối, ánh sáng của bạn lại càng lung linh?" },
 ];
 
 const links: [number, number][] = [

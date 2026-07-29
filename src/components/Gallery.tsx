@@ -26,7 +26,7 @@ export default function Gallery() {
             Một vài lá bài trong bộ
           </h2>
           <p className="mt-6 font-body leading-relaxed text-muted">
-            36 lá bài Lenormand mang ý nghĩa biểu tượng riêng. Dưới đây là một
+            37 lá bài Lenormand mang ý nghĩa biểu tượng riêng. Dưới đây là một
             số lá bài tiêu biểu trong bộ FAYE.
           </p>
         </div>

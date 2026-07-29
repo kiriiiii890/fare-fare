@@ -11,7 +11,7 @@ const features = [
   },
   {
     title: "Sổ tay hướng dẫn",
-    desc: "Đi kèm cuốn hướng dẫn giải nghĩa 36 lá bài, phù hợp cho cả người mới bắt đầu.",
+    desc: "Đi kèm cuốn hướng dẫn giải nghĩa 37 lá bài, phù hợp cho cả người mới bắt đầu.",
   },
 ];
 
