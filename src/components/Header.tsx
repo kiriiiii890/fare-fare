@@ -12,7 +12,7 @@ const NAV_LINKS = [
   { href: "/#hero", label: "Trang chủ" },
   { href: "/bo-bai", label: "Về bộ bài" },
   { href: "/gieo-que", label: "Gieo quẻ" },
-  { href: "#", label: "Mua hàng" },
+  { href: "/mua-hang", label: "Mua hàng" },
 ];
 
 export default function Header() {
@@ -171,9 +171,9 @@ export default function Header() {
           <Link href="/gieo-que" className="transition-colors hover:text-gold-soft">
             Gieo quẻ
           </Link>
-          <a href="#" className="transition-colors hover:text-gold-soft">
+          <Link href="/mua-hang" className="transition-colors hover:text-gold-soft">
             Mua hàng
-          </a>
+          </Link>
         </div>
       </div>
 
