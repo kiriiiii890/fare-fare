@@ -129,8 +129,18 @@ export default function BrandIntro() {
   return (
     <section
       id="thuong-hieu"
-      className="relative min-h-screen overflow-hidden bg-gradient-to-b from-background via-background-alt to-background"
+      className="relative min-h-screen overflow-hidden"
     >
+      <img
+        src={withBasePath("/images/background/bg-star2-optimized.webp")}
+        alt=""
+        className="absolute inset-0 -z-10 h-full w-full object-cover"
+      />
+      <div className="absolute inset-0 -z-10 bg-background/40" />
+      {/* Bóng mờ 2 mép trên/dưới để chuyển tiếp mượt sang section liền kề */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-32 bg-gradient-to-b from-background to-transparent sm:h-48" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-t from-background to-transparent sm:h-48" />
+
       <p
         className={`absolute left-1/2 top-20 -translate-x-1/2 whitespace-nowrap text-center font-body text-xs tracking-[0.3em] text-muted transition-opacity duration-500 sm:top-28 ${
           zoomed ? "opacity-0" : "opacity-100"

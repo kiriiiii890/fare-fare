@@ -15,6 +15,8 @@ export default function Hero() {
         className="object-cover"
       />
       <div className="pointer-events-none absolute inset-0 bg-background/10" />
+      {/* Bóng mờ ở mép dưới để chuyển tiếp mượt sang section kế tiếp */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent sm:h-48" />
 
       <Image
         src={withBasePath("/images/text-page1-full.png")}

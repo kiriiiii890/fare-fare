@@ -2,8 +2,7 @@ import Hero from "@/components/Hero";
 import BrandIntro from "@/components/BrandIntro";
 import Constellation from "@/components/Constellation";
 import LenormandTeaser from "@/components/LenormandTeaser";
-import About from "@/components/About";
-import Gallery from "@/components/Gallery";
+import GieoQueTeaser from "@/components/GieoQueTeaser";
 import ScrollSnapController from "@/components/ScrollSnapController";
 
 export default function Home() {
@@ -15,8 +14,7 @@ export default function Home() {
         <BrandIntro />
         <Constellation />
         <LenormandTeaser />
-        <About />
-        <Gallery />
+        <GieoQueTeaser />
       </main>
     </>
   );

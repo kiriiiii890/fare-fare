@@ -7,8 +7,7 @@ const SECTION_IDS = [
   "thuong-hieu",
   "thong-diep",
   "gioi-thieu-lenormand",
-  "gioi-thieu",
-  "bo-bai",
+  "gioi-thieu-gieo-que",
 ];
 // Chỉ tự động hoàn tất sang trang kế tiếp khi đã cuộn qua ngưỡng này (8/10 trang).
 const ADVANCE_THRESHOLD = 0.8;
