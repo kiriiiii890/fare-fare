@@ -225,12 +225,17 @@ export default function BrandIntro() {
             : "left-1/2 h-[200px] w-[200px] -translate-x-1/2 -translate-y-1/2 sm:h-[260px] sm:w-[260px] 2xl:h-[320px] 2xl:w-[320px]"
         }`}
       >
-        <Image
-          src={withBasePath("/images/moon.png")}
-          alt="FAYE"
-          fill
-          className="object-cover"
-        />
+        <div
+          style={{ animationDuration: "18s" }}
+          className={`absolute inset-0 ${zoomed ? "animate-spin" : ""}`}
+        >
+          <Image
+            src={withBasePath("/images/moon-end.png")}
+            alt="FAYE"
+            fill
+            className="object-cover"
+          />
+        </div>
       </button>
 
       {/* Nội dung — hiện ở nửa còn lại khi mặt trăng đã "to" xong */}

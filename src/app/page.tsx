@@ -2,7 +2,7 @@ import Hero from "@/components/Hero";
 import BrandIntro from "@/components/BrandIntro";
 import Constellation from "@/components/Constellation";
 import LenormandTeaser from "@/components/LenormandTeaser";
-import GieoQueTeaser from "@/components/GieoQueTeaser";
+import GieoQueIntro from "@/components/GieoQueIntro";
 import ScrollSnapController from "@/components/ScrollSnapController";
 
 export default function Home() {
@@ -14,7 +14,7 @@ export default function Home() {
         <BrandIntro />
         <Constellation />
         <LenormandTeaser />
-        <GieoQueTeaser />
+        <GieoQueIntro />
       </main>
     </>
   );

@@ -294,6 +294,7 @@ export default function FullCardGrid({ activeIndex }: { activeIndex: number }) {
         className="object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background-alt/75 to-background/90" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background to-transparent sm:h-48" />
 
       <div className="relative mx-auto max-w-6xl text-center">
         <p className="font-display text-3xl text-foreground sm:text-4xl">

@@ -1,23 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { withBasePath } from "@/lib/base-path";
-
-const PRODUCTS = [
-  {
-    name: "FAYE Lenormand",
-    desc: "37 lá bài minh họa thủ công, đồng hành cùng bạn trong hành trình chiêm nghiệm và kết nối trực giác.",
-    image: "/images/box/open.png",
-    imageAlt: "Bộ bài FAYE Lenormand",
-    href: "/bo-bai",
-  },
-  {
-    name: "FAYE Fortune Ticks",
-    desc: "78 quẻ xăm minh họa thủ công, giúp bạn lắng lòng và xin một lời gợi ý cho những băn khoăn thường nhật.",
-    image: "/images/box-que.png",
-    imageAlt: "Ống quẻ FAYE Fortune Ticks",
-    href: "/gieo-que",
-  },
-] as const;
+import { PRODUCTS } from "@/lib/products";
 
 // Chưa có link/kênh thật (Shopee, Zalo, Instagram, email) — chỉ liệt kê tên
 // kênh, không gắn href "#" giả để tránh link chết trên site thật.
@@ -25,7 +9,16 @@ const CONTACT_CHANNELS = ["Shopee", "Zalo", "Instagram", "Email"] as const;
 
 export default function MuaHang() {
   return (
-    <section className="relative flex min-h-screen flex-col items-center overflow-hidden bg-gradient-to-b from-background via-background-alt to-background px-6 py-28">
+    <section className="relative flex min-h-screen flex-col items-center overflow-hidden px-6 py-28">
+      <img
+        src={withBasePath("/images/background/bg-7.png")}
+        alt=""
+        className="absolute inset-0 -z-10 h-full w-full object-cover"
+      />
+      <div className="absolute inset-0 -z-10 bg-background/40" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-32 bg-gradient-to-b from-background to-transparent sm:h-48" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-t from-background to-transparent sm:h-48" />
+
       <div className="mx-auto w-full max-w-4xl text-center">
         <p className="mb-3 font-display text-xs tracking-[0.4em] text-gold-soft">
           MUA HÀNG
@@ -34,19 +27,19 @@ export default function MuaHang() {
           Sở Hữu FAYE
         </h1>
         <p className="mx-auto mt-4 max-w-xl font-body text-sm leading-relaxed text-muted">
-          Hai người bạn đồng hành của FAYE — bộ bài Lenormand và ống quẻ
+          Hai người bạn đồng hành của FAYE — bộ bài Spirit Lenormand và ống quẻ
           Fortune Ticks. Giá bán và kênh mua hàng đang được cập nhật, mời bạn
-          tìm hiểu thêm từng sản phẩm trong lúc chờ nhé.
+          xem chi tiết từng sản phẩm trong lúc chờ nhé.
         </p>
       </div>
 
       <div className="mx-auto mt-16 grid w-full max-w-4xl gap-8 sm:grid-cols-2">
         {PRODUCTS.map((product) => (
           <div
-            key={product.name}
+            key={product.slug}
             className="flex flex-col items-center rounded-2xl border border-gold/20 bg-background-alt/60 px-6 py-10 text-center"
           >
-            <div className="relative h-56 w-40 shrink-0">
+            <div className="relative h-72 w-56 shrink-0 sm:h-80 sm:w-64">
               <Image
                 src={withBasePath(product.image)}
                 alt={product.imageAlt}
@@ -66,10 +59,10 @@ export default function MuaHang() {
             </p>
 
             <Link
-              href={product.href}
+              href={`/mua-hang/${product.slug}`}
               className="mt-6 rounded-full border border-gold/50 px-6 py-2 font-body text-xs tracking-[0.2em] text-gold-soft transition-colors hover:border-gold hover:text-gold"
             >
-              TÌM HIỂU THÊM
+              XEM CHI TIẾT
             </Link>
           </div>
         ))}

@@ -4,7 +4,7 @@ import BoBaiExperience from "@/components/BoBaiExperience";
 export const metadata: Metadata = {
   title: "Về bộ bài | FAYE",
   description:
-    "Khám phá chi tiết bộ bài Lenormand FAYE — 37 lá bài minh họa thủ công.",
+    "Khám phá chi tiết bộ bài Spirit Lenormand — 37 lá bài minh họa thủ công.",
 };
 
 export default function BoBaiPage() {

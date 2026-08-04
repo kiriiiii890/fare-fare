@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import Box3D from "@/components/Box3D";
 import { withBasePath } from "@/lib/base-path";
 
 const previewCards = [
@@ -19,22 +20,24 @@ export default function LenormandTeaser() {
   return (
     <section
       id="gioi-thieu-lenormand"
-      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-background via-background-alt to-background py-28"
+      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden py-28"
     >
+      <img
+        src={withBasePath("/images/background/bg-4.png")}
+        alt=""
+        className="absolute inset-0 -z-10 h-full w-full object-cover"
+      />
+      <div className="absolute inset-0 -z-10 bg-background/40" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-32 bg-gradient-to-b from-background to-transparent sm:h-48" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-t from-background to-transparent sm:h-48" />
+
       <div className="mx-auto w-full max-w-5xl px-6 text-center">
-        <div
-          style={{ transitionDelay: open ? "150ms" : "0ms" }}
-          className={`transition-all duration-700 ${
-            open
-              ? "opacity-100"
-              : "pointer-events-none -translate-y-4 opacity-0"
-          }`}
-        >
+        <div>
           <p className="mb-3 font-display text-xs tracking-[0.4em] text-gold-soft">
             BỘ BÀI
           </p>
           <h2 className="font-display text-3xl text-foreground sm:text-4xl">
-            FAYE Lenormand
+            Spirit Lenormand
           </h2>
           <p className="mx-auto mt-4 max-w-xl font-body text-sm leading-relaxed text-muted">
             37 lá bài minh họa thủ công, đồng hành cùng bạn trong hành trình
@@ -42,30 +45,34 @@ export default function LenormandTeaser() {
           </p>
         </div>
 
-        <div className="relative mt-10 flex min-h-[420px] flex-col items-center justify-center gap-10">
-          <button
-            type="button"
-            onClick={() => setOpen((o) => !o)}
-            className="group relative h-64 w-40 shrink-0 cursor-pointer sm:h-80 sm:w-48"
-            aria-label={open ? "Đóng hộp bài" : "Mở hộp bài"}
-          >
-            <Image
-              src={withBasePath("/images/box/closed.png")}
-              alt="Hộp bài Lenormand FAYE"
-              fill
-              className={`object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] transition-opacity duration-500 group-hover:-translate-y-1 ${
-                open ? "opacity-0" : "opacity-100"
-              }`}
+        <div className="relative mt-16 flex min-h-[420px] flex-col items-center justify-center gap-10 sm:mt-20">
+          <div className="relative h-32 w-72 shrink-0 drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] sm:h-56 sm:w-[26rem]">
+            {/* Tỉ lệ thật của hộp: Dài : Rộng : Cao = 25 : 16 : 10. */}
+            <Box3D
+              width={275}
+              depth={176}
+              boxHeight={110}
+              lidHeight={114}
+              boxFaces={{
+                bottom: "/images/box/faces/box-back.png",
+                front: "/images/box/faces/lid-left.png",
+                back: "/images/box/faces/lid-right.png",
+                left: "/images/box/faces/lid-top.png",
+                right: "/images/box/faces/lid-back.png",
+              }}
+              boxHiddenFaces={["top"]}
+              lidFaces={{
+                top: "/images/box/faces/lid-front.png",
+                front: "/images/box/faces/lid-left.png",
+                back: "/images/box/faces/lid-right.png",
+                left: "/images/box/faces/lid-top.png",
+                right: "/images/box/faces/lid-back.png",
+              }}
+              lidHiddenFaces={["bottom"]}
+              className="mx-auto scale-[0.6] sm:scale-100"
+              onTap={(lidOpen) => setOpen(lidOpen)}
             />
-            <Image
-              src={withBasePath("/images/box/open.png")}
-              alt="Hộp bài Lenormand FAYE đã mở"
-              fill
-              className={`object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] transition-opacity duration-500 ${
-                open ? "opacity-100" : "opacity-0"
-              }`}
-            />
-          </button>
+          </div>
 
           {!open && (
             <span className="font-body text-xs tracking-[0.3em] text-muted">

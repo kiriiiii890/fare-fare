@@ -118,6 +118,8 @@ export default function CardCarousel({
         className="object-cover"
       />
       <div className="absolute inset-0 bg-background/60" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background to-transparent sm:h-48" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent sm:h-48" />
 
       <div className="relative flex h-[420px] w-full max-w-sm items-center justify-center sm:h-[500px]">
         <CardBack className="absolute aspect-[1890/3071] w-[160px] -translate-x-32 -rotate-[20deg] rounded-[28px] border border-gold/40 opacity-25 sm:w-[190px]" />

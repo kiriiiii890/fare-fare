@@ -12,6 +12,9 @@ const SECTION_IDS = [
 // Chỉ tự động hoàn tất sang trang kế tiếp khi đã cuộn qua ngưỡng này (8/10 trang).
 const ADVANCE_THRESHOLD = 0.8;
 const DURATION = 700;
+// Chỉ tự động khít khung hình sau khi người dùng dừng cuộn 10s, tránh làm
+// gián đoạn lúc họ vẫn đang chủ động cuộn/đọc nội dung.
+const IDLE_DELAY = 10000;
 
 function easeInOutCubic(t: number) {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -21,7 +24,7 @@ export default function ScrollSnapController() {
   const animating = useRef(false);
   const lastY = useRef(0);
   const goingDown = useRef(false);
-  const ticking = useRef(false);
+  const idleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   // Section đã kích hoạt tự động chuyển trang rồi, tránh kích hoạt lặp lại.
   const triggeredIndex = useRef<number | null>(null);
 
@@ -53,12 +56,7 @@ export default function ScrollSnapController() {
       requestAnimationFrame(step);
     };
 
-    // Kiểm tra ngay trong lúc đang cuộn (theo từng khung hình) thay vì đợi
-    // cuộn dừng hẳn — để bắt đúng thời điểm vừa qua ngưỡng 80%, tránh việc
-    // quán tính cuộn mạnh cuốn người dùng trôi sâu vào trang kế tiếp trước
-    // khi kịp kiểm tra (gây cảm giác "nhảy cóc" qua cả 1 trang).
     const check = () => {
-      ticking.current = false;
       if (animating.current || !goingDown.current) return;
 
       const sections = getSections();
@@ -88,15 +86,14 @@ export default function ScrollSnapController() {
       goingDown.current = y > lastY.current;
       lastY.current = y;
 
-      if (!ticking.current) {
-        ticking.current = true;
-        requestAnimationFrame(check);
-      }
+      if (idleTimer.current) clearTimeout(idleTimer.current);
+      idleTimer.current = setTimeout(check, IDLE_DELAY);
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
+      if (idleTimer.current) clearTimeout(idleTimer.current);
     };
   }, []);
 

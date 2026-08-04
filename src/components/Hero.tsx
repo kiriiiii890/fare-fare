@@ -22,6 +22,7 @@ export default function Hero() {
         src={withBasePath("/images/text-page1-full.png")}
         alt="Welcome to Faye — Nơi trực giác hóa thành lời đáp"
         fill
+        priority
         className="object-contain"
       />
     </section>

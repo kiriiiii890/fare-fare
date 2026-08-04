@@ -25,7 +25,7 @@ const tangerine = Tangerine({
 export const metadata: Metadata = {
   title: "FAYE",
   description:
-    "FAYE — bộ bài Lenormand 37 lá minh họa thủ công, dẫn lối chiêm nghiệm và kết nối trực giác qua các biểu tượng đời thường.",
+    "FAYE — Spirit Lenormand, bộ bài 37 lá minh họa thủ công, dẫn lối chiêm nghiệm và kết nối trực giác qua các biểu tượng đời thường.",
 };
 
 export default function RootLayout({
