@@ -20,9 +20,8 @@ const sections = [
   {
     title: "Định vị thương hiệu",
     desc: [
-      "FAYE VIETNAM là thương hiệu chuyên nghiên cứu, thiết kế và sản xuất các sản phẩm sáng tạo trong lĩnh vực board game và các bộ bài huyền học như Tarot, Oracle và Lenormand. Với định hướng kết hợp giữa nghệ thuật, nội dung chuyên sâu và trải nghiệm tương tác, FAYE không ngừng phát triển những sản phẩm mang dấu ấn riêng, đáp ứng nhu cầu khám phá, giải trí và phát triển bản thân của người dùng hiện đại.",
-      "Mỗi sản phẩm của FAYE được đầu tư kỹ lưỡng từ ý tưởng, thiết kế hình ảnh đến chất lượng sản xuất, nhằm mang đến những trải nghiệm vừa giàu tính thẩm mỹ vừa có giá trị ứng dụng.",
-      "Đối với các bộ bài huyền học, thương hiệu hướng đến việc giúp người dùng tiếp cận Tarot, Oracle và Lenormand một cách gần gũi, trực quan và truyền cảm hứng. Trong lĩnh vực board game, FAYE tập trung xây dựng những trò chơi có tính kết nối, sáng tạo và tương tác cao, góp phần tạo nên những khoảnh khắc giải trí ý nghĩa giữa gia đình, bạn bè và cộng đồng.",
+      "FAYE là thương hiệu thiết kế và sản xuất các sản phẩm sáng tạo trong lĩnh vực board game và bài huyền học như Tarot, Oracle, Lenormand — kết hợp nghệ thuật, nội dung chuyên sâu và trải nghiệm tương tác.",
+      "Từ bài huyền học đến board game, FAYE mang đến trải nghiệm gần gũi, truyền cảm hứng và giàu tính kết nối — giúp người dùng khám phá, giải trí và phát triển bản thân.",
     ],
   },
   {
@@ -95,6 +94,7 @@ export default function BrandIntro() {
   const [active, setActive] = useState<number | null>(null);
   const [shown, setShown] = useState<number | null>(null);
   const [side, setSide] = useState<"left" | "right">("right");
+  const [vSide, setVSide] = useState<"top" | "bottom">("bottom");
   const paused = active !== null;
   const zoomed = shown !== null;
 
@@ -116,7 +116,10 @@ export default function BrandIntro() {
     const stageRect = stageEl.getBoundingClientRect();
     const dx =
       starRect.left + starRect.width / 2 - (stageRect.left + stageRect.width / 2);
+    const dy =
+      starRect.top + starRect.height / 2 - (stageRect.top + stageRect.height / 2);
     setSide(dx >= 0 ? "right" : "left");
+    setVSide(dy >= 0 ? "bottom" : "top");
   };
 
   const goBack = () => {
@@ -142,7 +145,7 @@ export default function BrandIntro() {
       <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-t from-background to-transparent sm:h-48" />
 
       <p
-        className={`absolute left-1/2 top-20 -translate-x-1/2 whitespace-nowrap text-center font-body text-xs tracking-[0.3em] text-muted transition-opacity duration-500 sm:top-28 ${
+        className={`absolute left-1/2 top-20 w-full max-w-[280px] -translate-x-1/2 px-4 text-center font-body text-xs tracking-[0.3em] text-muted transition-opacity duration-500 sm:top-28 sm:w-auto sm:max-w-none sm:whitespace-nowrap sm:px-0 ${
           zoomed ? "opacity-0" : "opacity-100"
         }`}
       >
@@ -217,12 +220,14 @@ export default function BrandIntro() {
         onClick={zoomed ? goBack : undefined}
         aria-label={zoomed ? "Quay lại" : undefined}
         tabIndex={zoomed ? 0 : -1}
-        className={`absolute top-1/2 overflow-hidden rounded-full shadow-[0_0_60px_14px_rgba(232,205,122,0.2)] transition-[width,height,top,left,transform] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        className={`absolute overflow-hidden rounded-full shadow-[0_0_60px_14px_rgba(232,205,122,0.2)] transition-[width,height,top,left,transform] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
           zoomed
-            ? `h-[130vh] w-[130vh] -translate-y-1/2 cursor-pointer ${
-                side === "left" ? "left-[8%] -translate-x-1/2" : "left-[92%] -translate-x-1/2"
-              }`
-            : "left-1/2 h-[200px] w-[200px] -translate-x-1/2 -translate-y-1/2 sm:h-[260px] sm:w-[260px] 2xl:h-[320px] 2xl:w-[320px]"
+            ? // Mobile: nửa màn hình trên/dưới theo hướng ngôi sao (vSide).
+              // Từ sm trở lên: nửa màn hình trái/phải theo hướng ngôi sao (side).
+              `left-1/2 h-[130vw] w-[130vw] -translate-x-1/2 -translate-y-1/2 cursor-pointer sm:h-[130vh] sm:w-[130vh] ${
+                vSide === "top" ? "top-[8%]" : "top-[92%]"
+              } sm:top-1/2 ${side === "left" ? "sm:left-[8%]" : "sm:left-[92%]"}`
+            : "left-1/2 top-1/2 h-[200px] w-[200px] -translate-x-1/2 -translate-y-1/2 sm:h-[260px] sm:w-[260px] 2xl:h-[320px] 2xl:w-[320px]"
         }`}
       >
         <div
@@ -241,8 +246,10 @@ export default function BrandIntro() {
       {/* Nội dung — hiện ở nửa còn lại khi mặt trăng đã "to" xong */}
       <div
         style={{ transitionDelay: zoomed ? "500ms" : "0ms" }}
-        className={`absolute inset-y-0 flex w-full items-center justify-start overflow-y-auto pr-8 transition-opacity duration-500 sm:w-1/2 ${
-          side === "left" ? "right-0 pl-8" : "left-0 pl-8 sm:pl-[calc(2rem+10%)]"
+        className={`absolute inset-x-0 flex h-1/2 w-full items-center justify-start px-8 transition-opacity duration-500 sm:inset-x-auto sm:inset-y-0 sm:h-auto sm:w-1/2 ${
+          vSide === "top" ? "bottom-0 pb-10" : "top-0 pt-10"
+        } ${
+          side === "left" ? "sm:right-0" : "sm:left-0 sm:pl-[calc(2rem+10%)]"
         } ${zoomed ? "opacity-100" : "pointer-events-none opacity-0"}`}
       >
         {activeSection && (
