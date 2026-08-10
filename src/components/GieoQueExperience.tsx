@@ -92,7 +92,7 @@ export default function GieoQueExperience() {
                 className="absolute left-1/2 -translate-x-1/2 [perspective:1200px]"
                 style={
                   {
-                    bottom: "calc(100% + 35px)",
+                    bottom: "calc(100% + 70px)",
                     animation: "message-fade 600ms ease-out both",
                     "--banner-w": "min(92vw, 676px)",
                     width: "var(--banner-w)",
