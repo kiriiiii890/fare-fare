@@ -122,23 +122,40 @@ export default function GieoQueIntro() {
                   }}
                   className={`absolute z-10 w-6 origin-bottom overflow-hidden rounded-t-full sm:w-8 ${s.height}`}
                 >
-                  {/* Ảnh mặt sau vẽ theo chiều ngang, khung que theo chiều
-                      đứng — xoay 90° rồi mới object-cover để lấp đầy khung,
-                      thay vì chỉ crop 1 lát dọc hẹp. */}
+                  {/* Lớp rung riêng cho từng que — mỗi que một hướng
+                      (theo phía lệch trái/phải so với tâm) và một vận tốc
+                      (duration khác nhau) để trông như que thật xóc lộn xộn
+                      trong ống, không đơ đồng loạt theo cụm hộp. */}
                   <div
-                    className="absolute left-1/2 top-1/2"
-                    style={{
-                      width: s.smH,
-                      height: STICK_W_SM,
-                      transform: "translate(-50%, -50%) rotate(90deg)",
-                    }}
+                    style={
+                      phase === "shaking"
+                        ? {
+                            animation: `${
+                              s.x < 0 ? "stick-shake-a" : "stick-shake-b"
+                            } ${260 + i * 45}ms ease-in-out infinite`,
+                          }
+                        : undefined
+                    }
+                    className="absolute inset-0"
                   >
-                    <Image
-                      src={withBasePath(`/images/${QUE_BACK}`)}
-                      alt=""
-                      fill
-                      className="object-cover object-center"
-                    />
+                    {/* Ảnh mặt sau vẽ theo chiều ngang, khung que theo chiều
+                        đứng — xoay 90° rồi mới object-cover để lấp đầy khung,
+                        thay vì chỉ crop 1 lát dọc hẹp. */}
+                    <div
+                      className="absolute left-1/2 top-1/2"
+                      style={{
+                        width: s.smH,
+                        height: STICK_W_SM,
+                        transform: "translate(-50%, -50%) rotate(90deg)",
+                      }}
+                    >
+                      <Image
+                        src={withBasePath(`/images/${QUE_BACK}`)}
+                        alt=""
+                        fill
+                        className="object-cover object-center"
+                      />
+                    </div>
                   </div>
                 </div>
               ))}

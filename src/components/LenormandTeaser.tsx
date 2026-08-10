@@ -87,7 +87,9 @@ export default function LenormandTeaser() {
                   <div
                     key={c.name}
                     style={{ animationDelay: `${300 + i * 180}ms` }}
-                    className="w-16 origin-bottom animate-[reveal-up_0.6s_ease-out_both] opacity-0 sm:w-24 md:w-28"
+                    className={`w-16 origin-bottom animate-[reveal-up_0.6s_ease-out_both] opacity-0 sm:w-24 md:w-28 ${
+                      i === previewCards.length - 1 ? "hidden sm:block" : ""
+                    }`}
                   >
                     <div
                       style={

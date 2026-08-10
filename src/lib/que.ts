@@ -23,13 +23,10 @@ export const QUE_BACK = "que/que-ht-back.png";
 // toàn cho mọi kích thước màn hình, ảnh sẽ crop khít hơn ở màn nhỏ chứ
 // không hở viền.
 export const PEEK_STICKS = [
-  { x: -30, rotate: -20, height: "h-20 sm:h-24", smH: 96 },
   { x: -20, rotate: 9, height: "h-36 sm:h-40", smH: 160 },
   { x: -10, rotate: -6, height: "h-32 sm:h-36", smH: 144 },
-  { x: 2, rotate: 18, height: "h-20 sm:h-24", smH: 96 },
   { x: 12, rotate: -13, height: "h-40 sm:h-44", smH: 176 },
   { x: 22, rotate: 4, height: "h-32 sm:h-36", smH: 144 },
-  { x: 32, rotate: -8, height: "h-36 sm:h-40", smH: 160 },
 ] as const;
 
 // Chiều rộng que ở breakpoint sm (khớp class sm:w-8 khi dùng PEEK_STICKS).
