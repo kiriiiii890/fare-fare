@@ -22,11 +22,14 @@ export const QUE_BACK = "que/que-ht-back.png";
 // sau (vốn vẽ theo chiều ngang) — lấy mốc sm (lớn hơn) làm khung xoay an
 // toàn cho mọi kích thước màn hình, ảnh sẽ crop khít hơn ở màn nhỏ chứ
 // không hở viền.
+// `x`/`xSm` là độ lệch ngang (px) riêng cho mobile/từ sm trở lên — que rộng
+// hơn ở sm (w-8 so với w-6) nên cần dàn xa hơn tương ứng, nếu dùng chung 1
+// giá trị thì trên desktop các que sẽ đè sát/lẫn vào nhau.
 export const PEEK_STICKS = [
-  { x: -24, rotate: 9, height: "h-36 sm:h-40", smH: 160 },
-  { x: -8, rotate: -6, height: "h-32 sm:h-36", smH: 144 },
-  { x: 8, rotate: -13, height: "h-40 sm:h-44", smH: 176 },
-  { x: 24, rotate: 4, height: "h-32 sm:h-36", smH: 144 },
+  { x: -24, xSm: -40, rotate: 9, height: "h-36 sm:h-40", smH: 160 },
+  { x: -8, xSm: -13, rotate: -6, height: "h-32 sm:h-36", smH: 144 },
+  { x: 8, xSm: 13, rotate: -13, height: "h-40 sm:h-44", smH: 176 },
+  { x: 24, xSm: 40, rotate: 4, height: "h-32 sm:h-36", smH: 144 },
 ] as const;
 
 // Chiều rộng que ở breakpoint sm (khớp class sm:w-8 khi dùng PEEK_STICKS).

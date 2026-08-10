@@ -4,7 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import Box3D from "@/components/Box3D";
+import { cards } from "@/lib/cards";
 import { withBasePath } from "@/lib/base-path";
+
+// Chồng bài nằm trong hộp — 16 lá xếp cao dần (xem CARD_STACK_GAP trong
+// Box3D.tsx), cùng kích thước/hướng xoay để trông như 1 bó bài thật.
+const stackedBoxCards = cards
+  .slice(0, 16)
+  .map((c) => ({ file: c.file, rotate: 90, widthRatio: 0.55 }));
 
 const previewCards = [
   { name: "Kỵ Sĩ", file: "1-rider.png", rotate: -12 },
@@ -61,6 +68,7 @@ export default function LenormandTeaser() {
                 right: "/images/box/faces/lid-back.png",
               }}
               boxHiddenFaces={["top"]}
+              boxCards={stackedBoxCards}
               lidFaces={{
                 top: "/images/box/faces/lid-front.png",
                 front: "/images/box/faces/lid-left.png",

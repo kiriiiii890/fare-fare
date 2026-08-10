@@ -13,6 +13,17 @@ type Faces = {
   bottom?: string;
 };
 
+// Một lá bài nằm phẳng bên trong hộp — hiện ra khi nắp mở, nằm đúng trong hệ
+// toạ độ 3D của hộp nên xoay/kéo hộp thì bài cũng xoay theo, không bị "dán
+// cứng" phẳng trên màn hình như một lớp overlay 2D thông thường.
+type InnerCard = {
+  file: string;
+  rotate?: number;
+  offsetX?: number;
+  offsetY?: number;
+  widthRatio?: number;
+};
+
 type Box3DProps = {
   width?: number;
   boxHeight?: number;
@@ -24,6 +35,7 @@ type Box3DProps = {
   lidHiddenFaces?: (keyof Faces)[];
   wallThickness?: number;
   edgeColor?: string;
+  boxCards?: InnerCard[];
   className?: string;
   onTap?: (open: boolean) => void;
 };
@@ -156,6 +168,97 @@ function Rim({
   );
 }
 
+// Bó bài nằm phẳng ngay dưới miệng hộp (mặt `top` đang để hở) — cùng mặt
+// phẳng và cách xoay X như mặt `top` gốc, chỉ lùi vào trong (`inset`) một
+// chút theo trục Z để trông như đang nằm lọt bên trong hộp chứ không nổi
+// hẳn lên ngang miệng. Render bên trong hệ toạ độ cục bộ của hộp (trước khi
+// cha xoay/kéo) nên xoay theo hộp là chuyện tự nhiên, không cần đồng bộ gì
+// thêm.
+// Độ dày lá bài (px, dọc theo trục Z cục bộ của mặt phẳng đáy hộp) — mặt ảnh
+// được nâng lên `CARD_THICKNESS`, phía dưới lót thêm 1 lớp màu đặc cùng
+// kích thước ở Z=0. Nhờ cảnh có `perspective` thật (không phải orthographic)
+// nên 2 lớp lệch Z tạo ra viền dày nhìn thấy được ở mép, giống lá bài thật
+// có độ dày thay vì 1 tờ giấy phẳng dán trong hộp.
+const CARD_THICKNESS = 2;
+const CARD_EDGE_COLOR = "#cba135";
+// Khoảng cách giữa 2 lá liền kề trong chồng bài — thứ tự trong mảng `cards`
+// chính là thứ tự xếp chồng (phần tử sau nằm cao hơn phần tử trước).
+const CARD_STACK_GAP = 3;
+
+function CardsInBox({
+  width,
+  depth,
+  halfH,
+  inset,
+  cards,
+  visible,
+}: {
+  width: number;
+  depth: number;
+  halfH: number;
+  inset: number;
+  cards: InnerCard[];
+  visible: boolean;
+}) {
+  return (
+    <div
+      className="pointer-events-none absolute [transform-style:preserve-3d] transition-opacity duration-500"
+      style={{
+        width,
+        height: depth,
+        top: "50%",
+        left: "50%",
+        marginLeft: -width / 2,
+        marginTop: -depth / 2,
+        transform: `rotateX(90deg) translateZ(${halfH - inset}px)`,
+        opacity: visible ? 1 : 0,
+      }}
+    >
+      {cards.map((c, i) => {
+        const w = width * (c.widthRatio ?? 0.22);
+        const h = (w * 3.4) / 2;
+        const stackZ = i * CARD_STACK_GAP;
+        return (
+          <div
+            key={i}
+            className="absolute [transform-style:preserve-3d]"
+            style={{
+              width: w,
+              height: h,
+              top: "50%",
+              left: "50%",
+              marginLeft: -w / 2 + (c.offsetX ?? 0),
+              marginTop: -h / 2 + (c.offsetY ?? 0),
+              transform: `rotate(${c.rotate ?? 0}deg)`,
+            }}
+          >
+            {/* Đế — lớp màu đặc nằm sát Z=0, chỉ lộ ra thành viền mỏng quanh
+                mép khi nhìn nghiêng, mô phỏng cạnh dày của lá bài. */}
+            <div
+              className="absolute inset-0 rounded-[4px]"
+              style={{ backgroundColor: CARD_EDGE_COLOR, transform: `translateZ(${stackZ}px)` }}
+            />
+            {/* Mặt trước — ảnh lá bài, nâng lên đúng bằng độ dày (cộng thêm
+                độ cao xếp chồng của riêng lá này trong bó). */}
+            <div
+              className="absolute inset-0 overflow-hidden rounded-[4px] shadow-[0_4px_10px_rgba(0,0,0,0.45)]"
+              style={{ transform: `translateZ(${stackZ + CARD_THICKNESS}px)` }}
+            >
+              <Image
+                src={withBasePath(`/images/img-card/${c.file}`)}
+                alt=""
+                fill
+                draggable={false}
+                className="pointer-events-none object-cover"
+              />
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 // Một khối hộp chữ nhật 6 mặt, dịch theo trục Y (trong không gian cục bộ,
 // trước khi cha xoay) để xếp hộp và nắp chồng lên nhau đúng vị trí.
 function Cuboid({
@@ -168,6 +271,8 @@ function Cuboid({
   offsetY,
   hiddenFaces = [],
   wallThickness = 0,
+  cards,
+  cardsVisible = false,
   onPointerDown,
 }: {
   width: number;
@@ -179,6 +284,8 @@ function Cuboid({
   offsetY: number;
   hiddenFaces?: (keyof Faces)[];
   wallThickness?: number;
+  cards?: InnerCard[];
+  cardsVisible?: boolean;
   onPointerDown?: (e: React.PointerEvent) => void;
 }) {
   const halfW = width / 2;
@@ -252,6 +359,16 @@ function Cuboid({
       {wallThickness > 0 && hiddenFaces.includes("bottom") && (
         <Rim width={width} depth={depth} halfH={halfH} thickness={wallThickness} color={edgeColor} variant="bottom" />
       )}
+      {cards && cards.length > 0 && (
+        <CardsInBox
+          width={width}
+          depth={depth}
+          halfH={halfH}
+          inset={height - wallThickness - 6}
+          cards={cards}
+          visible={cardsVisible}
+        />
+      )}
     </div>
   );
 }
@@ -267,6 +384,7 @@ export default function Box3D({
   lidHiddenFaces = [],
   wallThickness = 4,
   edgeColor = "#241a3d",
+  boxCards,
   className = "",
   onTap,
 }: Box3DProps) {
@@ -471,6 +589,8 @@ export default function Box3D({
                 offsetY={0}
                 hiddenFaces={boxHiddenFaces}
                 wallThickness={wallThickness}
+                cards={boxCards}
+                cardsVisible={lidOpen}
                 onPointerDown={handleBoxPointerDown}
               />
             </div>
@@ -522,6 +642,8 @@ export default function Box3D({
             offsetY={boxOffsetY}
             hiddenFaces={boxHiddenFaces}
             wallThickness={wallThickness}
+            cards={boxCards}
+            cardsVisible={lidOpen}
           />
           <Cuboid
             width={width + 4}

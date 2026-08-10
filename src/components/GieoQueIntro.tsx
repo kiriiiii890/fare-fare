@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { withBasePath } from "@/lib/base-path";
+import { useIsSmUp } from "@/lib/use-is-sm-up";
 import { QUE_BACK, PEEK_STICKS, STICK_W_SM } from "@/lib/que";
 
 const SHAKE_DURATION = 1700;
@@ -13,6 +14,7 @@ type Phase = "closed" | "shaking" | "open";
 export default function GieoQueIntro() {
   const [phase, setPhase] = useState<Phase>("closed");
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isSmUp = useIsSmUp();
 
   const handleShake = () => {
     if (phase !== "closed") return;
@@ -114,7 +116,7 @@ export default function GieoQueIntro() {
                   style={{
                     left: "50%",
                     bottom: phase === "open" ? "90%" : "50%",
-                    transform: `translateX(calc(-50% + ${s.x}px)) rotate(${s.rotate}deg)`,
+                    transform: `translateX(calc(-50% + ${isSmUp ? s.xSm : s.x}px)) rotate(${s.rotate}deg)`,
                     transition:
                       phase === "open"
                         ? "bottom 900ms cubic-bezier(0.22,1,0.36,1)"

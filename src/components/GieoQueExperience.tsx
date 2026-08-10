@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { withBasePath } from "@/lib/base-path";
+import { useIsSmUp } from "@/lib/use-is-sm-up";
 import {
   queSticks,
   QUE_BACK,
@@ -29,6 +30,7 @@ export default function GieoQueExperience() {
   // Quẻ hiện mặt úp trước, người dùng chạm vào mới lật ra mặt trước (kết quả).
   const [flipped, setFlipped] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isSmUp = useIsSmUp();
 
   const handleDraw = () => {
     if (phase !== "closed") return;
@@ -67,7 +69,7 @@ export default function GieoQueExperience() {
           lời nhắn dành cho bạn lúc này.
         </p>
 
-        <div className="relative mx-auto mt-28 flex min-h-[360px] w-full flex-col items-center justify-end">
+        <div className="relative mx-auto mt-28 flex min-h-[360px] w-full flex-col items-center justify-end sm:min-h-[480px]">
           {/* "Hộp" = nắp + ống xếp chồng trực tiếp lên nhau (không overlay đè
               vào nhau) — cả cụm cùng chịu hiệu ứng rung khi lắc quẻ. Luôn
               `relative` và giữ nguyên chiều cao ở mọi phase (nắp chỉ ẩn bằng
@@ -178,7 +180,7 @@ export default function GieoQueExperience() {
                   style={{
                     left: "50%",
                     bottom: phase === "revealed" ? "90%" : "50%",
-                    transform: `translateX(calc(-50% + ${s.x}px)) rotate(${s.rotate}deg)`,
+                    transform: `translateX(calc(-50% + ${isSmUp ? s.xSm : s.x}px)) rotate(${s.rotate}deg)`,
                     transition:
                       phase === "revealed"
                         ? "bottom 900ms cubic-bezier(0.22,1,0.36,1)"
