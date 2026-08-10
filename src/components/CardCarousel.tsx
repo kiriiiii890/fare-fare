@@ -122,10 +122,10 @@ export default function CardCarousel({
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent sm:h-48" />
 
       <div className="relative flex h-[420px] w-full max-w-sm items-center justify-center sm:h-[500px]">
-        <CardBack className="absolute aspect-[1890/3071] w-[125px] -translate-x-[124px] rounded-[28px] border border-gold/40 opacity-25 sm:w-[190px] sm:-translate-x-40" />
-        <CardBack className="absolute aspect-[1890/3071] w-[145px] -translate-x-[62px] rounded-[28px] border border-gold/40 opacity-40 sm:w-[230px] sm:-translate-x-20" />
-        <CardBack className="absolute aspect-[1890/3071] w-[145px] translate-x-[62px] rounded-[28px] border border-gold/40 opacity-40 sm:w-[230px] sm:translate-x-20" />
-        <CardBack className="absolute aspect-[1890/3071] w-[125px] translate-x-[124px] rounded-[28px] border border-gold/40 opacity-25 sm:w-[190px] sm:translate-x-40" />
+        <CardBack className="absolute aspect-[1890/3071] w-[125px] -translate-x-[95px] rounded-[28px] border border-gold/40 opacity-25 sm:w-[190px] sm:-translate-x-40" />
+        <CardBack className="absolute aspect-[1890/3071] w-[145px] -translate-x-[48px] rounded-[28px] border border-gold/40 opacity-40 sm:w-[230px] sm:-translate-x-20" />
+        <CardBack className="absolute aspect-[1890/3071] w-[145px] translate-x-[48px] rounded-[28px] border border-gold/40 opacity-40 sm:w-[230px] sm:translate-x-20" />
+        <CardBack className="absolute aspect-[1890/3071] w-[125px] translate-x-[95px] rounded-[28px] border border-gold/40 opacity-25 sm:w-[190px] sm:translate-x-40" />
 
         {upcomingCard && (
           <div
@@ -191,7 +191,7 @@ export default function CardCarousel({
         <p className="font-display text-3xl text-foreground sm:text-4xl">
           {card.name}
         </p>
-        <p className="mt-6 font-body text-sm leading-relaxed text-muted sm:text-base">
+        <p className="mt-6 min-h-[92px] font-body text-sm leading-relaxed text-muted sm:min-h-[78px] sm:text-base">
           {card.desc}
         </p>
       </div>
