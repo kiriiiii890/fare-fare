@@ -122,10 +122,10 @@ export default function CardCarousel({
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent sm:h-48" />
 
       <div className="relative flex h-[420px] w-full max-w-sm items-center justify-center sm:h-[500px]">
-        <CardBack className="absolute aspect-[1890/3071] w-[160px] -translate-x-32 -rotate-[20deg] rounded-[28px] border border-gold/40 opacity-25 sm:w-[190px]" />
-        <CardBack className="absolute aspect-[1890/3071] w-[190px] -translate-x-20 -rotate-[10deg] rounded-[28px] border border-gold/40 opacity-40 sm:w-[230px]" />
-        <CardBack className="absolute aspect-[1890/3071] w-[190px] translate-x-20 rotate-[10deg] rounded-[28px] border border-gold/40 opacity-40 sm:w-[230px]" />
-        <CardBack className="absolute aspect-[1890/3071] w-[160px] translate-x-32 rotate-[20deg] rounded-[28px] border border-gold/40 opacity-25 sm:w-[190px]" />
+        <CardBack className="absolute aspect-[1890/3071] w-[125px] -translate-x-[124px] rounded-[28px] border border-gold/40 opacity-25 sm:w-[190px] sm:-translate-x-40" />
+        <CardBack className="absolute aspect-[1890/3071] w-[145px] -translate-x-[62px] rounded-[28px] border border-gold/40 opacity-40 sm:w-[230px] sm:-translate-x-20" />
+        <CardBack className="absolute aspect-[1890/3071] w-[145px] translate-x-[62px] rounded-[28px] border border-gold/40 opacity-40 sm:w-[230px] sm:translate-x-20" />
+        <CardBack className="absolute aspect-[1890/3071] w-[125px] translate-x-[124px] rounded-[28px] border border-gold/40 opacity-25 sm:w-[190px] sm:translate-x-40" />
 
         {upcomingCard && (
           <div
@@ -136,7 +136,7 @@ export default function CardCarousel({
                 ? "none"
                 : `opacity ${EXIT_DURATION}ms ease, transform ${EXIT_DURATION}ms ease`,
             }}
-            className="absolute aspect-[1890/3071] w-[220px] overflow-hidden rounded-2xl bg-background-alt/90 sm:w-[270px]"
+            className="absolute aspect-[1890/3071] w-[170px] overflow-hidden rounded-2xl bg-background-alt/90 sm:w-[270px]"
           >
             <Image
               src={withBasePath(`/images/img-card/${upcomingCard.file}`)}
@@ -153,7 +153,7 @@ export default function CardCarousel({
             transform: `scale(${dragging ? 1.06 : 1})`,
             transition: "transform 200ms ease",
           }}
-          className="relative z-10 aspect-[1890/3071] w-[220px] cursor-grab rounded-2xl active:cursor-grabbing sm:w-[270px]"
+          className="relative z-10 aspect-[1890/3071] w-[170px] cursor-grab rounded-2xl active:cursor-grabbing sm:w-[270px]"
         >
           <div
             key={index}

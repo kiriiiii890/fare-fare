@@ -230,7 +230,7 @@ export default function BrandIntro() {
           className={`absolute inset-0 ${zoomed ? "animate-spin" : ""}`}
         >
           <Image
-            src={withBasePath("/images/moon-end.png")}
+            src={withBasePath("/images/background/moon-end.png")}
             alt="FAYE"
             fill
             className="object-cover"

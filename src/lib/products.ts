@@ -91,7 +91,7 @@ export const PRODUCTS: Product[] = [
       {
         name: "Ống Quẻ Fortune Ticks",
         desc: "Ống gỗ đựng 78 que quẻ, thiết kế nhỏ gọn để mang theo bên mình.",
-        image: "/images/box-que.png",
+        image: "/images/que/box-que.png",
         imageAlt: "Ống quẻ Fortune Ticks FAYE",
       },
       {

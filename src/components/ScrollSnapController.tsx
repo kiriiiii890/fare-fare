@@ -12,9 +12,9 @@ const SECTION_IDS = [
 // Chỉ tự động hoàn tất sang trang kế tiếp khi đã cuộn qua ngưỡng này (8/10 trang).
 const ADVANCE_THRESHOLD = 0.8;
 const DURATION = 700;
-// Chỉ tự động khít khung hình sau khi người dùng dừng cuộn 10s, tránh làm
+// Chỉ tự động khít khung hình sau khi người dùng dừng cuộn 3s, tránh làm
 // gián đoạn lúc họ vẫn đang chủ động cuộn/đọc nội dung.
-const IDLE_DELAY = 10000;
+const IDLE_DELAY = 3000;
 
 function easeInOutCubic(t: number) {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;

@@ -8,7 +8,7 @@ export default function Hero() {
       className="relative flex min-h-screen items-center overflow-hidden pt-24"
     >
       <Image
-        src={withBasePath("/images/hero-bg.png")}
+        src={withBasePath("/images/background/hero-bg.png")}
         alt=""
         fill
         priority
@@ -19,11 +19,11 @@ export default function Hero() {
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent sm:h-48" />
 
       <Image
-        src={withBasePath("/images/text-page1-full.png")}
+        src={withBasePath("/images/text/text-page1-full.png")}
         alt="Welcome to Faye — Nơi trực giác hóa thành lời đáp"
         fill
         priority
-        className="object-contain"
+        className="scale-110 object-contain"
       />
     </section>
   );

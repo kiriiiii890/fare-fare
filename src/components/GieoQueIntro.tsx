@@ -84,7 +84,7 @@ export default function GieoQueIntro() {
               className="relative z-20 w-full aspect-[672/716]"
             >
               <Image
-                src={withBasePath("/images/nap.png")}
+                src={withBasePath("/images/que/nap.png")}
                 alt=""
                 fill
                 className="object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.4)]"
@@ -97,7 +97,7 @@ export default function GieoQueIntro() {
             <div className="relative z-10 -mt-5 aspect-[1254/2348] w-full overflow-visible sm:-mt-7">
               {/* Lớp 1: thân ống (nền) — có cả miệng ống hình elip ở đỉnh. */}
               <Image
-                src={withBasePath("/images/box-que.png")}
+                src={withBasePath("/images/que/box-que.png")}
                 alt="Ống quẻ FAYE Fortune"
                 fill
                 className="object-contain drop-shadow-[0_25px_45px_rgba(0,0,0,0.55)]"
@@ -152,7 +152,7 @@ export default function GieoQueIntro() {
                 style={{ top: "2.5554%", height: "97.4446%" }}
               >
                 <Image
-                  src={withBasePath("/images/box-que-2.png")}
+                  src={withBasePath("/images/que/box-que-2.png")}
                   alt=""
                   fill
                   className="object-contain drop-shadow-[0_25px_45px_rgba(0,0,0,0.55)]"
