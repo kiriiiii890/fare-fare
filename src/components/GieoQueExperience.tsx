@@ -176,19 +176,22 @@ export default function GieoQueExperience() {
                   que thật xếp lộn xộn. Nằm trên lớp thân ống nhưng dưới lớp
                   mặt trước ống (lớp 3) nên phần chân que bị che khuất, chỉ
                   thấy đoạn thò ra khỏi miệng ống. Khi có kết quả, chỉ đúng 1
-                  que (đại diện cho quẻ vừa gieo) trồi hẳn lên, các que còn
-                  lại giữ nguyên vị trí — không phải cả bó cùng trồi lên,
-                  tránh gây hiểu nhầm là gieo ra nhiều quẻ cùng lúc. */}
-              {PEEK_STICKS.map((s, i) => (
+                  que (đại diện cho quẻ vừa gieo) trồi lên, đứng thẳng và
+                  nằm giữa miệng ống; các que còn lại giữ nguyên vị trí —
+                  không phải cả bó cùng trồi lên, tránh gây hiểu nhầm là
+                  gieo ra nhiều quẻ cùng lúc. */}
+              {PEEK_STICKS.map((s, i) => {
+                const isHero = phase === "revealed" && i === HERO_STICK_INDEX;
+                return (
                 <div
                   key={i}
                   style={{
                     left: "50%",
-                    bottom: phase === "revealed" && i === HERO_STICK_INDEX ? "90%" : "50%",
-                    transform: `translateX(calc(-50% + ${isSmUp ? s.xSm : s.x}px)) rotate(${s.rotate}deg)`,
+                    bottom: isHero ? "75%" : "50%",
+                    transform: `translateX(calc(-50% + ${isHero ? 0 : isSmUp ? s.xSm : s.x}px)) rotate(${isHero ? 0 : s.rotate}deg)`,
                     transition:
-                      phase === "revealed" && i === HERO_STICK_INDEX
-                        ? "bottom 900ms cubic-bezier(0.22,1,0.36,1)"
+                      isHero
+                        ? "bottom 900ms cubic-bezier(0.22,1,0.36,1), transform 900ms cubic-bezier(0.22,1,0.36,1)"
                         : "bottom 300ms ease",
                   }}
                   className={`absolute z-10 w-6 origin-bottom overflow-hidden rounded-t-full sm:w-8 ${s.height}`}
@@ -229,7 +232,8 @@ export default function GieoQueExperience() {
                     </div>
                   </div>
                 </div>
-              ))}
+                );
+              })}
 
               {/* Lớp 3: mặt trước ống — cùng ảnh với lớp 1 nhưng cắt bỏ phần
                   miệng ống (khớp pixel khi phóng theo đúng tỉ lệ, lệch top

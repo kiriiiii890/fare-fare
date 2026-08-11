@@ -8,6 +8,11 @@ import { useIsSmUp } from "@/lib/use-is-sm-up";
 import { QUE_BACK, PEEK_STICKS, STICK_W_SM } from "@/lib/que";
 
 const SHAKE_DURATION = 1700;
+// Que duy nhất trồi lên khi mở hộp — chỉ số trong PEEK_STICKS, chọn que
+// giữa/dài nhất (index 2) cho nổi bật, đại diện cho quẻ vừa gieo. Đứng
+// thẳng (không nghiêng) khi trồi lên, khác các que còn lại vẫn nghiêng
+// như lúc lắc.
+const HERO_STICK_INDEX = 2;
 
 type Phase = "closed" | "shaking" | "open";
 
@@ -109,17 +114,21 @@ export default function GieoQueIntro() {
                   nhau cho giống một bó que thật xếp lộn xộn. Nằm trên lớp
                   thân ống nhưng dưới lớp mặt trước ống (lớp 3) nên phần
                   chân que bị che khuất, chỉ thấy đoạn thò ra khỏi miệng
-                  ống. Khi mở hộp, cả bó trồi lên khỏi miệng ống. */}
-              {PEEK_STICKS.map((s, i) => (
+                  ống. Khi mở hộp, chỉ đúng 1 que (đại diện cho quẻ vừa
+                  gieo) trồi lên và đứng thẳng, các que còn lại giữ nguyên
+                  vị trí/độ nghiêng như lúc lắc. */}
+              {PEEK_STICKS.map((s, i) => {
+                const isHero = phase === "open" && i === HERO_STICK_INDEX;
+                return (
                 <div
                   key={i}
                   style={{
                     left: "50%",
-                    bottom: phase === "open" ? "90%" : "50%",
-                    transform: `translateX(calc(-50% + ${isSmUp ? s.xSm : s.x}px)) rotate(${s.rotate}deg)`,
+                    bottom: isHero ? "75%" : "50%",
+                    transform: `translateX(calc(-50% + ${isHero ? 0 : isSmUp ? s.xSm : s.x}px)) rotate(${isHero ? 0 : s.rotate}deg)`,
                     transition:
-                      phase === "open"
-                        ? "bottom 900ms cubic-bezier(0.22,1,0.36,1)"
+                      isHero
+                        ? "bottom 900ms cubic-bezier(0.22,1,0.36,1), transform 900ms cubic-bezier(0.22,1,0.36,1)"
                         : "bottom 300ms ease",
                   }}
                   className={`absolute z-10 w-6 origin-bottom overflow-hidden rounded-t-full sm:w-8 ${s.height}`}
@@ -160,7 +169,8 @@ export default function GieoQueIntro() {
                     </div>
                   </div>
                 </div>
-              ))}
+                );
+              })}
 
               {/* Lớp 3: mặt trước ống — cùng ảnh với lớp 1 nhưng cắt bỏ phần
                   miệng ống (khớp pixel khi phóng theo đúng tỉ lệ, lệch top

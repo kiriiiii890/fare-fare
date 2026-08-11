@@ -132,7 +132,13 @@ export default function BrandIntro() {
   return (
     <section
       id="thuong-hieu"
-      className="relative min-h-screen overflow-hidden"
+      // min-h-screen thôi thì không đủ khi viewport thấp (màn ngang, cửa sổ
+      // trình duyệt thấp...) — cụm vòng quỹ đạo canh giữa theo chiều dọc của
+      // section sẽ trồi lên đè vào dòng chữ neo gần đỉnh. Thêm sàn chiều cao
+      // tối thiểu tuyệt đối (qua max() với 100vh) đúng bằng khoảng cách cần
+      // để chữ + vòng quỹ đạo không bao giờ chạm nhau ở từng breakpoint kích
+      // thước vòng khác nhau — section sẽ cuộn thay vì bị bóp méo.
+      className="relative min-h-[max(100vh,640px)] overflow-hidden sm:min-h-[max(100vh,760px)] 2xl:min-h-[max(100vh,900px)]"
     >
       <img
         src={withBasePath("/images/background/bg-star2-optimized.webp")}
