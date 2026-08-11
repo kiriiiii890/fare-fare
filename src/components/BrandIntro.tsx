@@ -232,7 +232,7 @@ export default function BrandIntro() {
       >
         <div
           style={{ animationDuration: "18s" }}
-          className={`absolute inset-0 ${zoomed ? "animate-spin" : ""}`}
+          className="absolute inset-0 animate-spin [animation-direction:reverse]"
         >
           <Image
             src={withBasePath("/images/background/moon-end.png")}

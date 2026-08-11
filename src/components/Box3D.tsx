@@ -383,7 +383,7 @@ export default function Box3D({
   boxHiddenFaces = [],
   lidHiddenFaces = [],
   wallThickness = 4,
-  edgeColor = "#241a3d",
+  edgeColor = "#1D0E3E",
   boxCards,
   className = "",
   onTap,
