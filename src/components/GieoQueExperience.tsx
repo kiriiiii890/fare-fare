@@ -15,6 +15,9 @@ import {
 const DRAWABLE: readonly QueStick[] = queSticks;
 
 const SHAKE_DURATION = 1700;
+// Que duy nhất trồi lên khi có kết quả — chỉ số trong PEEK_STICKS, chọn que
+// giữa/dài nhất (index 2) cho nổi bật, đại diện cho quẻ vừa gieo.
+const HERO_STICK_INDEX = 2;
 
 // Ảnh que đã thiết kế sẵn theo chiều ngang (banner bo tròn 2 đầu), không cần
 // xoay khi hiển thị. Tỉ lệ ~10:1 nên chiều rộng được ràng buộc theo
@@ -172,17 +175,19 @@ export default function GieoQueExperience() {
                   lộ kết quả), xếp lệch + dài ngắn khác nhau cho giống một bó
                   que thật xếp lộn xộn. Nằm trên lớp thân ống nhưng dưới lớp
                   mặt trước ống (lớp 3) nên phần chân que bị che khuất, chỉ
-                  thấy đoạn thò ra khỏi miệng ống. Khi có kết quả, cả bó trồi
-                  hẳn lên rồi banner mặt trước hiện riêng bên trên. */}
+                  thấy đoạn thò ra khỏi miệng ống. Khi có kết quả, chỉ đúng 1
+                  que (đại diện cho quẻ vừa gieo) trồi hẳn lên, các que còn
+                  lại giữ nguyên vị trí — không phải cả bó cùng trồi lên,
+                  tránh gây hiểu nhầm là gieo ra nhiều quẻ cùng lúc. */}
               {PEEK_STICKS.map((s, i) => (
                 <div
                   key={i}
                   style={{
                     left: "50%",
-                    bottom: phase === "revealed" ? "90%" : "50%",
+                    bottom: phase === "revealed" && i === HERO_STICK_INDEX ? "90%" : "50%",
                     transform: `translateX(calc(-50% + ${isSmUp ? s.xSm : s.x}px)) rotate(${s.rotate}deg)`,
                     transition:
-                      phase === "revealed"
+                      phase === "revealed" && i === HERO_STICK_INDEX
                         ? "bottom 900ms cubic-bezier(0.22,1,0.36,1)"
                         : "bottom 300ms ease",
                   }}
