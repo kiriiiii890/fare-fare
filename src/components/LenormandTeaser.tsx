@@ -77,6 +77,7 @@ export default function LenormandTeaser() {
                 right: "/images/box/faces/lid-back.png",
               }}
               lidHiddenFaces={["bottom"]}
+              lidEdgeColor="#1D0E3E"
               className="mx-auto scale-[0.6] sm:scale-100"
               onTap={(lidOpen) => setOpen(lidOpen)}
             />

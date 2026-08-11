@@ -17,10 +17,10 @@ const DRAWABLE: readonly QueStick[] = queSticks;
 const SHAKE_DURATION = 1700;
 
 // Ảnh que đã thiết kế sẵn theo chiều ngang (banner bo tròn 2 đầu), không cần
-// xoay khi hiển thị. Tỉ lệ ~12.6:1 nên chiều rộng được ràng buộc theo
+// xoay khi hiển thị. Tỉ lệ ~10:1 nên chiều rộng được ràng buộc theo
 // viewport (CSS var --banner-w) để luôn vừa khít màn hình, chiều cao suy ra
 // theo đúng tỉ lệ gốc của ảnh.
-const BANNER_RATIO = 2245 / 178;
+const BANNER_RATIO = 1773 / 177;
 
 type Phase = "closed" | "shaking" | "revealed";
 
@@ -272,9 +272,16 @@ export default function GieoQueExperience() {
               ĐANG LẮC QUẺ...
             </span>
           )}
-          {phase === "revealed" && !flipped && (
+          {/* Luôn giữ trong layout khi đã "revealed" (chỉ đổi opacity khi
+              flipped), không unmount hẳn — nếu không, khối chứa hụt mất 1
+              dòng chữ ngay lúc lật quẻ, kéo cả trang bị co lại theo. */}
+          {phase === "revealed" && (
             <span
-              style={{ animation: "message-fade 500ms ease-out both" }}
+              style={{
+                animation: "message-fade 500ms ease-out both",
+                opacity: flipped ? 0 : 1,
+                transition: "opacity 300ms ease",
+              }}
               className="font-body text-xs tracking-[0.3em] text-muted"
             >
               CHẠM VÀO QUẺ ĐỂ XEM KẾT QUẢ

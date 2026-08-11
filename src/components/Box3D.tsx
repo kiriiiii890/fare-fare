@@ -13,6 +13,21 @@ type Faces = {
   bottom?: string;
 };
 
+const INNER_CAP_EDGE_GRADIENT_PX = 4;
+
+// Nền cho mặt trần bên trong nắp: màu đặc `color`, viền đen mờ dần vào trong
+// đúng `size`px ở cả 4 cạnh (không phải gradient toả tròn từ tâm — hình chữ
+// nhật dẹt nên gradient tròn sẽ tối rực ở góc trước khi chạm mép ngắn).
+function edgeVignetteBackground(color: string, size: number) {
+  return [
+    `linear-gradient(to bottom, #000000, transparent ${size}px) top / 100% ${size}px no-repeat`,
+    `linear-gradient(to top, #000000, transparent ${size}px) bottom / 100% ${size}px no-repeat`,
+    `linear-gradient(to right, #000000, transparent ${size}px) left / ${size}px 100% no-repeat`,
+    `linear-gradient(to left, #000000, transparent ${size}px) right / ${size}px 100% no-repeat`,
+    color,
+  ].join(", ");
+}
+
 // Một lá bài nằm phẳng bên trong hộp — hiện ra khi nắp mở, nằm đúng trong hệ
 // toạ độ 3D của hộp nên xoay/kéo hộp thì bài cũng xoay theo, không bị "dán
 // cứng" phẳng trên màn hình như một lớp overlay 2D thông thường.
@@ -35,6 +50,9 @@ type Box3DProps = {
   lidHiddenFaces?: (keyof Faces)[];
   wallThickness?: number;
   edgeColor?: string;
+  // Màu riêng cho mặt trong của nắp (mặt `bottom`, chỉ thấy khi mở nắp) —
+  // mặc định dùng chung `edgeColor` nếu không truyền riêng.
+  lidEdgeColor?: string;
   boxCards?: InnerCard[];
   className?: string;
   onTap?: (open: boolean) => void;
@@ -47,6 +65,7 @@ function Face({
   src,
   alt,
   color,
+  background,
 }: {
   w: number;
   h: number;
@@ -54,6 +73,7 @@ function Face({
   src?: string;
   alt?: string;
   color: string;
+  background?: string;
 }) {
   return (
     <div
@@ -67,6 +87,7 @@ function Face({
         marginTop: -h / 2,
         transform,
         backgroundColor: color,
+        background,
       }}
     >
       {src && (
@@ -273,6 +294,7 @@ function Cuboid({
   wallThickness = 0,
   cards,
   cardsVisible = false,
+  innerCapColor,
   onPointerDown,
 }: {
   width: number;
@@ -286,6 +308,11 @@ function Cuboid({
   wallThickness?: number;
   cards?: InnerCard[];
   cardsVisible?: boolean;
+  // Mặt phẳng màu đặc nằm sát ngay dưới mặt `top` (cách đúng 1 bề dày vách),
+  // dùng làm "trần" mặt trong khi mặt `top` có ảnh thật (vd nắp hộp) — khác
+  // với việc dùng thẳng mặt `bottom` (nằm ở cực đối diện, cách xa `top` cả
+  // chiều cao khối) vốn sẽ che khuất toàn bộ 4 mặt bên khi nhìn từ dưới lên.
+  innerCapColor?: string;
   onPointerDown?: (e: React.PointerEvent) => void;
 }) {
   const halfW = width / 2;
@@ -359,6 +386,15 @@ function Cuboid({
       {wallThickness > 0 && hiddenFaces.includes("bottom") && (
         <Rim width={width} depth={depth} halfH={halfH} thickness={wallThickness} color={edgeColor} variant="bottom" />
       )}
+      {innerCapColor && (
+        <Face
+          w={width}
+          h={depth}
+          transform={`rotateX(90deg) translateZ(${halfH - wallThickness}px)`}
+          color={innerCapColor}
+          background={edgeVignetteBackground(innerCapColor, INNER_CAP_EDGE_GRADIENT_PX)}
+        />
+      )}
       {cards && cards.length > 0 && (
         <CardsInBox
           width={width}
@@ -383,7 +419,8 @@ export default function Box3D({
   boxHiddenFaces = [],
   lidHiddenFaces = [],
   wallThickness = 4,
-  edgeColor = "#1D0E3E",
+  edgeColor = "#241a3d",
+  lidEdgeColor,
   boxCards,
   className = "",
   onTap,
@@ -619,6 +656,7 @@ export default function Box3D({
                 offsetY={0}
                 hiddenFaces={lidHiddenFaces}
                 wallThickness={wallThickness}
+                innerCapColor={lidEdgeColor}
                 onPointerDown={handleLidPointerDown}
               />
             </div>
@@ -655,6 +693,7 @@ export default function Box3D({
             offsetY={lidOffsetY}
             hiddenFaces={lidHiddenFaces}
             wallThickness={wallThickness}
+            innerCapColor={lidEdgeColor}
           />
         </div>
       )}

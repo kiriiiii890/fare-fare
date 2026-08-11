@@ -1,18 +1,18 @@
 // Mỗi quẻ là 1 ảnh thiết kế sẵn dạng banner ngang, bo tròn 2 đầu (tiêu đề +
 // lời giải đã nằm trong ảnh), không cần xoay khi hiển thị — nên data ở đây
 // chỉ cần trỏ đúng file, không tách riêng tên/nội dung như cards.ts.
-// 02-03 là 2 quẻ mẫu đầu tiên; sẽ bổ sung dần tới đủ 78 quẻ (khớp số lượng
-// in trên vỏ hộp box-que.png).
-export const queSticks = [
-  { id: "02", file: "que/que-ht-02.png" },
-  { id: "03", file: "que/que-ht-03.png" },
-] as const;
+// Đủ 78 quẻ (khớp số lượng in trên vỏ hộp box-que.png), file gốc trong
+// public/images/que-new/78artbroad-01.png .. 78artbroad-78.png.
+export const queSticks = Array.from({ length: 78 }, (_, i) => {
+  const numeral = String(i + 1).padStart(2, "0");
+  return { id: numeral, file: `que-new/78artbroad-${numeral}.png` };
+});
 
 export type QueStick = (typeof queSticks)[number];
 
 // Mặt sau — dùng chung cho mọi que, hiện khi que còn nằm trong ống lúc lắc
 // (chưa biết kết quả là quẻ nào), cùng dáng banner bo tròn với mặt trước.
-export const QUE_BACK = "que/que-ht-back.png";
+export const QUE_BACK = "que-new/back.png";
 
 // Que ló ra khỏi ống — lệch trái/phải, xoay và dài ngắn khác nhau để trông
 // như một bó que thật xếp lộn xộn, không đều tăm tắp. Thân que thon dài cho
