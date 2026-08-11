@@ -47,8 +47,11 @@ export default function LenormandTeaser() {
             Spirit Lenormand
           </h2>
           <p className="mx-auto mt-4 max-w-xl font-body text-sm leading-relaxed text-muted">
-            37 lá bài minh họa thủ công, đồng hành cùng bạn trong hành trình
-            chiêm nghiệm và kết nối trực giác. (nội dung tạm, sẽ cập nhật sau)
+            Spirit Lenormand là bộ 37 lá bài minh họa thủ công, lấy cảm hứng
+            từ hệ thống Lenormand truyền thống nhưng khoác lên một diện mạo
+            mềm mại, gần gũi hơn. Mỗi lá là một biểu tượng quen thuộc trong
+            đời sống — một tấm gương nhỏ để bạn lắng nghe trực giác và nhìn
+            rõ hơn câu chuyện của chính mình.
           </p>
         </div>
 
