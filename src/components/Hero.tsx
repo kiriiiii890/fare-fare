@@ -14,7 +14,7 @@ export default function Hero() {
         priority
         className="object-cover"
       />
-      <div className="pointer-events-none absolute inset-0 bg-background/10" />
+      <div className="pointer-events-none absolute inset-0 bg-background/35" />
       {/* Bóng mờ ở mép dưới để chuyển tiếp mượt sang section kế tiếp */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent sm:h-48" />
 
